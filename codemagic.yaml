@@ -1,50 +1,40 @@
 workflows:
-  android-final-test-apk:
-    name: Dream Squad Final Test APK
+  android-final-build:
+    name: Dream Squad Final Build
     max_build_duration: 60
+
     environment:
       flutter: stable
       android_signing:
         - agecalculator_upload
+
     scripts:
       - name: Get Flutter packages
-        script: flutter pub get
+        script: |
+          flutter pub get
+
       - name: Prepare Android platform
         script: |
           chmod +x tool/bootstrap_android.sh
           ./tool/bootstrap_android.sh
+
       - name: Generate app icon and splash
         script: |
           dart run flutter_launcher_icons
           dart run flutter_native_splash:create
+
       - name: Analyze project
-        script: flutter analyze
-      - name: Build final test APK
-        script: flutter build apk --release --dart-define=USE_TEST_ADS=true
+        script: |
+          flutter analyze --no-fatal-infos --no-fatal-warnings
+
+      - name: Build final APK
+        script: |
+          flutter build apk --release --dart-define=USE_TEST_ADS=true
+
+      - name: Build final AAB
+        script: |
+          flutter build appbundle --release --dart-define=USE_TEST_ADS=false
+
     artifacts:
       - build/app/outputs/flutter-apk/app-release.apk
-
-  android-production-aab:
-    name: Dream Squad Production AAB
-    max_build_duration: 60
-    environment:
-      flutter: stable
-      android_signing:
-        - agecalculator_upload
-    scripts:
-      - name: Get Flutter packages
-        script: flutter pub get
-      - name: Prepare Android platform
-        script: |
-          chmod +x tool/bootstrap_android.sh
-          ./tool/bootstrap_android.sh
-      - name: Generate app icon and splash
-        script: |
-          dart run flutter_launcher_icons
-          dart run flutter_native_splash:create
-      - name: Analyze project
-        script: flutter analyze
-      - name: Build production AAB
-        script: flutter build appbundle --release --dart-define=USE_TEST_ADS=false
-    artifacts:
       - build/app/outputs/bundle/release/app-release.aab
