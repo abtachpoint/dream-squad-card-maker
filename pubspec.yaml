@@ -1,0 +1,55 @@
+name: dream_squad_card_maker
+description: Dream Squad Card Maker - custom football cards and squad builder.
+publish_to: 'none'
+version: 1.0.0+11
+
+environment:
+  sdk: '>=3.8.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  firebase_core: ^4.15.0
+  firebase_auth: ^6.7.0
+  cloud_firestore: ^6.10.0
+  google_sign_in: ^7.2.0
+  google_mobile_ads: ^9.1.0
+  in_app_purchase: ^3.3.1
+  crypto: ^3.0.6
+  image_picker: ^1.1.2
+  image_cropper: ^12.2.1
+  google_mlkit_selfie_segmentation: ^0.11.0
+  image: ^4.5.4
+  path_provider: ^2.1.4
+  shared_preferences: ^2.3.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.14.4
+  flutter_native_splash: ^2.4.8
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/efootball_cover.webp
+    - assets/images/app_icon.png
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: assets/images/app_icon.png
+  adaptive_icon_background: '#090A0E'
+  adaptive_icon_foreground: assets/images/app_icon.png
+  min_sdk_android: 24
+
+flutter_native_splash:
+  color: '#090A0E'
+  image: assets/images/app_icon.png
+  android: true
+  ios: false
+  android_12:
+    color: '#090A0E'
+    image: assets/images/app_icon.png
