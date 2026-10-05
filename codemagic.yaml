@@ -1,0 +1,17 @@
+workflows:
+  android-trial-apk:
+    name: Dream Squad Trial APK
+    max_build_duration: 60
+    environment:
+      flutter: stable
+    scripts:
+      - name: Prepare Android platform
+        script: |
+          chmod +x tool/bootstrap_android.sh
+          ./tool/bootstrap_android.sh
+      - name: Get Flutter packages
+        script: flutter pub get
+      - name: Build release APK
+        script: flutter build apk --release
+    artifacts:
+      - build/app/outputs/flutter-apk/app-release.apk
