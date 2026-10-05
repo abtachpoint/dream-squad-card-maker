@@ -9,17 +9,50 @@ workflows:
         - agecalculator_upload
 
     scripts:
+      - name: Clean and get Flutter packages
+        script: |
+          flutter clean
+          flutter pub get
+
       - name: Prepare clean Android API 36 project
         script: |
           chmod +x tool/prepare_android.sh
           ./tool/prepare_android.sh
-          grep -n "compileSdk = 36\|targetSdk = 36\|minSdk = 24" android/app/build.gradle.kts
 
-      - name: Get Flutter packages
+      - name: Verify Android launcher activity
         script: |
-          flutter pub get
+          echo "=== VERIFYING MAIN ACTIVITY ==="
 
-      - name: Generate final app icon and splash
+          MAIN="android/app/src/main/kotlin/com/soikot/dreamsquad/MainActivity.kt"
+          MANIFEST="android/app/src/main/AndroidManifest.xml"
+
+          if [ ! -f "$MAIN" ]; then
+            echo "ERROR: MainActivity.kt not found"
+            exit 1
+          fi
+
+          grep -q '^package com\.soikot\.dreamsquad' "$MAIN" || {
+            echo "ERROR: MainActivity package is wrong"
+            exit 1
+          }
+
+          grep -q 'android:name="com.soikot.dreamsquad.MainActivity"' "$MANIFEST" || {
+            echo "ERROR: Manifest launcher activity is wrong"
+            exit 1
+          }
+
+          echo "MainActivity file found:"
+          find android/app/src/main -name "MainActivity.kt" -print
+
+          echo "MainActivity package:"
+          grep '^package ' "$MAIN"
+
+          echo "Manifest activity:"
+          grep 'com.soikot.dreamsquad.MainActivity' "$MANIFEST"
+
+          echo "MAIN ACTIVITY CHECK PASSED"
+
+      - name: Generate app icon and splash
         script: |
           dart run flutter_launcher_icons
           dart run flutter_native_splash:create
@@ -28,11 +61,11 @@ workflows:
         script: |
           flutter analyze --no-fatal-infos --no-fatal-warnings
 
-      - name: Build final APK with test ads
+      - name: Build final APK
         script: |
           flutter build apk --release --dart-define=USE_TEST_ADS=true
 
-      - name: Build final AAB with live ads
+      - name: Build final AAB
         script: |
           flutter build appbundle --release --dart-define=USE_TEST_ADS=false
 
