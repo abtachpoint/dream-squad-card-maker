@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "553610713446",
+    "project_id": "dream-squad-card-maker",
+    "storage_bucket": "dream-squad-card-maker.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:553610713446:android:848b698138bed11b2690a7",
+        "android_client_info": {
+          "package_name": "com.soikot.dreamsquad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "553610713446-vkrf3voolja1r5noleblm4oka76alida.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.soikot.dreamsquad",
+            "certificate_hash": "ee6205ea8102249771cba3dcf98580094ce3de1c"
+          }
+        },
+        {
+          "client_id": "553610713446-52poftt47aqmb3ps119bo6ll8pogb42l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjsUpWLY1lm_5y_vZ6_Kkj0JFO4e3QOmc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "553610713446-52poftt47aqmb3ps119bo6ll8pogb42l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
